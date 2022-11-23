@@ -40,3 +40,30 @@ toggle.addEventListener('click', (e) => {
         e.target.innerHTML = 'Light mode'
     }
 })
+
+function setTime() {
+    const time = new Date();
+    console.log(time);
+
+    const month = time.getMonth()
+
+    const day = time.getDay()
+
+    const hour = time.getHours()
+
+    const hourForClock = hour % 12
+
+    const minute = time.getMinutes()
+
+    const seconds = time.getSeconds()
+
+    hourEl.style.transform = `translate(-50%, -100%) rotate(${scale(hourForClock)})`
+}
+
+//from stackoverflow  
+
+const scale = (num, in_min, in_max, out_min, out_max) => {
+    return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+setTime()
