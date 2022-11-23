@@ -49,15 +49,27 @@ function setTime() {
 
     const day = time.getDay()
 
+    const date = time.getDate()
+
     const hour = time.getHours()
 
     const hourForClock = hour % 12
 
     const minute = time.getMinutes()
 
-    const seconds = time.getSeconds()
+    const second = time.getSeconds()
 
-    hourEl.style.transform = `translate(-50%, -100%) rotate(${scale(hourForClock)})`
+    const ampm = hour >= 12 ? 'PM' : 'AM'
+
+    hourEl.style.transform = `translate(-50%, -100%) rotate(${scale(hourForClock, 0, 11, 0, 360)}deg)`
+
+    minuteEl.style.transform = `translate(-50%, -100%) rotate(${scale(minute, 0, 59, 0, 360)}deg)`
+
+    secondEl.style.transform = `translate(-50%, -100%) rotate(${scale(second, 0, 59, 0, 360)}deg)`
+
+    time.innerHTML = `${hourForClock}:${minute < 10 ? `0${minute}` :minute} ${ampm}`
+
+    dateEl.innerHTML = `${days[day]}, ${months[month]} <span class="circle">${date}</span>` 
 }
 
 //from stackoverflow  
@@ -67,3 +79,5 @@ const scale = (num, in_min, in_max, out_min, out_max) => {
 }
 
 setTime()
+
+setInterval(setTime, 1000)
